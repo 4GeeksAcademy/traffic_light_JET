@@ -10,6 +10,15 @@
 
 */
 
-.shine (
-    background-color: yellow;
-)
+.bg-danger.shine   { --glow-color: rgba(220, 53,  69,  0.75); }
+.bg-warning.shine  { --glow-color: rgba(255, 193, 7,   0.75); }
+.bg-success.shine  { --glow-color: rgba(25,  135, 84,  0.75); }
+
+
+.shine {
+ 
+  box-shadow:
+    0 0 8px  4px var(--glow-color),
+    0 0 16px 8px var(--glow-color);
+  transition: box-shadow 0.3s ease-in-out;
+}

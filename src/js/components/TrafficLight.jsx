@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Stack } from "react-bootstrap";
 
 const LIGHTS = [
@@ -8,6 +8,11 @@ const LIGHTS = [
 ];
 
 function TrafficLight() {
+  const [shiningIndex, setShiningIndex] = useState(null);
+  const handleClick = (idx) => {
+    setShiningIndex((prev) => (prev === idx ? null : idx));
+  };
+
   return (
     <div className="text-center">
       <div
@@ -24,15 +29,19 @@ function TrafficLight() {
         className="align-items-center p-3 bg-dark rounded mx-auto"
         style={{ width: "4rem" }}
       >
-        {LIGHTS.map((light) => (
+        {LIGHTS.map((light, idx) => (
           <div
             key={light.label}
-            className={`${light.color} rounded-circle`}
-            style={{
-              width: "2rem",
-              height: "2rem",
-              opacity: 1,
-            }}
+            role="button"
+            tabIndex={0}
+            className={`
+              ${light.color}
+              rounded-circle
+              ${shiningIndex === idx ? "shine" : ""}
+            `}
+            onClick={() => handleClick(idx)}
+            onKeyDown={(e) => e.key === "Enter" && handleClick(idx)}
+            style={{ width: "2rem", height: "2rem" }}
             aria-label={light.label}
           />
         ))}
